@@ -204,7 +204,9 @@ public abstract class AbstractWindowsTerminal extends AbstractTerminal {
             Signals.unregister(entry.getKey().name(), entry.getValue());
         }
         reader.close();
-        writer.close();
+        // Do not close the writer / output, as it's the
+        // process output stream and we don't want to close it
+        writer.flush();
         if (consoleOutputCP > 0) {
             setConsoleOutputCP(consoleOutputCP);
         }
